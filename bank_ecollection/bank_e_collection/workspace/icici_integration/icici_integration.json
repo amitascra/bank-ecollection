@@ -1,0 +1,276 @@
+{
+ "charts": [
+  {
+   "chart_name": "ICICI Transaction Summary",
+   "label": "ICICI Transaction Summary"
+  },
+  {
+   "chart_name": "Virtual Account Status",
+   "label": "Virtual Account Status"
+  },
+  {
+   "chart_name": "Payment Processing Status",
+   "label": "Payment Processing Status"
+  }
+ ],
+ "content": "[{\"id\":\"ICICIChart01\",\"type\":\"chart\",\"data\":{\"chart_name\":\"ICICI Transaction Summary\",\"col\":12}},{\"id\":\"ICICICard01\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Virtual Accounts\",\"col\":3}},{\"id\":\"ICICICard02\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Active Virtual Accounts\",\"col\":3}},{\"id\":\"ICICICard03\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Payment Intimations\",\"col\":3}},{\"id\":\"ICICICard04\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Processed Payments\",\"col\":3}},{\"id\":\"ICICISpacer01\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ICICIHeader01\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\",\"col\":12}},{\"id\":\"ICICIShortcut01\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"ICICI Settings\",\"col\":3}},{\"id\":\"ICICIShortcut02\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Virtual Accounts\",\"col\":3}},{\"id\":\"ICICIShortcut03\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payment Intimations\",\"col\":3}},{\"id\":\"ICICIShortcut04\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer\",\"col\":3}},{\"id\":\"ICICISpacer02\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ICICIHeader02\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Reports &amp; Masters</b></span>\",\"col\":12}},{\"id\":\"ICICICard05\",\"type\":\"card\",\"data\":{\"card_name\":\"Configuration\",\"col\":4}},{\"id\":\"ICICICard06\",\"type\":\"card\",\"data\":{\"card_name\":\"Virtual Accounts\",\"col\":4}},{\"id\":\"ICICICard07\",\"type\":\"card\",\"data\":{\"card_name\":\"Payment Processing\",\"col\":4}},{\"id\":\"ICICICard08\",\"type\":\"card\",\"data\":{\"card_name\":\"Tools\",\"col\":4}}]",
+ "creation": "2026-01-19 08:30:00",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "university",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "ICICI Integration",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Configuration",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ICICI Settings",
+   "link_count": 0,
+   "link_to": "ICICI Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Virtual Accounts",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "ICICI Settings",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ICICI Virtual Account",
+   "link_count": 0,
+   "link_to": "ICICI Virtual Account",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Processing",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "ICICI Virtual Account",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ICICI Payment Intimation",
+   "link_count": 0,
+   "link_to": "ICICI Payment Intimation",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "ICICI Transaction Report",
+   "link_count": 0,
+   "link_to": "ICICI Transaction Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Virtual Account Summary",
+   "link_count": 0,
+   "link_to": "Virtual Account Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tools",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bank Account",
+   "link_count": 0,
+   "link_to": "Bank Account",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bank Transaction",
+   "link_count": 0,
+   "link_to": "Bank Transaction",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Bank Reconciliation Tool",
+   "link_count": 0,
+   "link_to": "Bank Reconciliation Tool",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Entry",
+   "link_count": 0,
+   "link_to": "Payment Entry",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Debug Tools",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Test API Connection",
+   "link_count": 0,
+   "link_to": "test-icici-connection",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Debug Reconciliation",
+   "link_count": 0,
+   "link_to": "icici-reconciliation",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "ICICI Integration Settings",
+   "link_count": 0,
+   "link_to": "ICICI Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-19 14:26:21.963292",
+ "modified_by": "Administrator",
+ "module": "Bank E-Collection",
+ "name": "ICICI Integration",
+ "number_cards": [
+  {
+   "label": "Total Virtual Accounts",
+   "number_card_name": "Total Virtual Accounts"
+  },
+  {
+   "label": "Active Virtual Accounts", 
+   "number_card_name": "Active Virtual Accounts"
+  },
+  {
+   "label": "Payment Intimations",
+   "number_card_name": "Payment Intimations"
+  },
+  {
+   "label": "Processed Payments",
+   "number_card_name": "Processed Payments"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Orange",
+   "doc_view": "New",
+   "label": "ICICI Settings",
+   "link_to": "ICICI Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "Bank Transactions",
+   "link_to": "Bank Transaction",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Payment Entries",
+   "link_to": "Payment Entry",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "doc_view": "New",
+   "label": "Bank Reconciliation",
+   "link_to": "Bank Reconciliation Tool",
+   "type": "DocType"
+  }
+ ],
+ "title": "ICICI Integration"
+}

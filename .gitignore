@@ -3,5 +3,6 @@
 *.egg-info
 *.swp
 tags
+research
 node_modules
 __pycache__

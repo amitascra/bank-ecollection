@@ -1,0 +1,220 @@
+{
+ "actions": [],
+ "creation": "2026-01-19 08:06:00.000000",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "engine": "InnoDB",
+ "field_order": [
+  "environment_section",
+  "environment",
+  "client_code",
+  "api_key",
+  "column_break_4",
+  "public_key_path",
+  "private_key_path",
+  "webhook_section",
+  "webhook_username",
+  "webhook_password",
+  "column_break_9",
+  "webhook_ip_whitelist",
+  "integration_settings_section",
+  "enable_integration",
+  "auto_create_payment_entry",
+  "auto_submit_payment_entry",
+  "column_break_14",
+  "enable_customer_integration",
+  "enable_supplier_integration",
+  "default_accounts_section",
+  "default_company",
+  "default_bank_account",
+  "column_break_18",
+  "default_cash_account",
+  "api_urls_section",
+  "bene_upload_url",
+  "enquiry_url",
+  "column_break_22",
+  "intimation_callback_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "environment_section",
+   "fieldtype": "Section Break",
+   "label": "Environment Configuration"
+  },
+  {
+   "default": "UAT",
+   "fieldname": "environment",
+   "fieldtype": "Select",
+   "label": "Environment",
+   "options": "UAT\nProduction",
+   "reqd": 1
+  },
+  {
+   "fieldname": "client_code",
+   "fieldtype": "Data",
+   "label": "Client Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Password",
+   "label": "API Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "public_key_path",
+   "fieldtype": "Data",
+   "label": "Public Key Path"
+  },
+  {
+   "fieldname": "private_key_path",
+   "fieldtype": "Data",
+   "label": "Private Key Path"
+  },
+  {
+   "fieldname": "webhook_section",
+   "fieldtype": "Section Break",
+   "label": "Webhook Configuration"
+  },
+  {
+   "fieldname": "webhook_username",
+   "fieldtype": "Data",
+   "label": "Webhook Username"
+  },
+  {
+   "fieldname": "webhook_password",
+   "fieldtype": "Password",
+   "label": "Webhook Password"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "webhook_ip_whitelist",
+   "fieldtype": "Text",
+   "label": "Webhook IP Whitelist",
+   "description": "Comma-separated list of allowed IP addresses"
+  },
+  {
+   "fieldname": "integration_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Integration Settings"
+  },
+  {
+   "default": 1,
+   "fieldname": "enable_integration",
+   "fieldtype": "Check",
+   "label": "Enable Integration"
+  },
+  {
+   "default": 1,
+   "fieldname": "auto_create_payment_entry",
+   "fieldtype": "Check",
+   "label": "Auto Create Payment Entry"
+  },
+  {
+   "default": 0,
+   "fieldname": "auto_submit_payment_entry",
+   "fieldtype": "Check",
+   "label": "Auto Submit Payment Entry"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": 1,
+   "fieldname": "enable_customer_integration",
+   "fieldtype": "Check",
+   "label": "Enable Customer Integration"
+  },
+  {
+   "default": 1,
+   "fieldname": "enable_supplier_integration",
+   "fieldtype": "Check",
+   "label": "Enable Supplier Integration"
+  },
+  {
+   "fieldname": "default_accounts_section",
+   "fieldtype": "Section Break",
+   "label": "Default Accounts"
+  },
+  {
+   "fieldname": "default_company",
+   "fieldtype": "Link",
+   "label": "Default Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "default_bank_account",
+   "fieldtype": "Link",
+   "label": "Default Bank Account",
+   "options": "Bank Account"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_cash_account",
+   "fieldtype": "Link",
+   "label": "Default Cash Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "api_urls_section",
+   "fieldtype": "Section Break",
+   "label": "API URLs"
+  },
+  {
+   "fieldname": "bene_upload_url",
+   "fieldtype": "Data",
+   "label": "Bene Upload URL"
+  },
+  {
+   "fieldname": "enquiry_url",
+   "fieldtype": "Data",
+   "label": "Enquiry URL"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "intimation_callback_url",
+   "fieldtype": "Data",
+   "label": "Intimation Callback URL",
+   "read_only": 1
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-01-19 08:06:00.000000",
+ "modified_by": "Administrator",
+ "module": "Bank E-Collection",
+ "name": "ICICI Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

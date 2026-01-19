@@ -1,0 +1,292 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Test ICICI API Connection") }}{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2><i class="fa fa-university"></i> Test ICICI API Connection & Debug Tools</h2>
+            <p class="text-muted">Test and validate ICICI Bank e-Collection API connectivity, configuration, and integration status.</p>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fa fa-cog"></i> Configuration Status</h4>
+                </div>
+                <div class="card-body">
+                    <div id="settings-status">
+                        <div class="text-center">
+                            <i class="fa fa-spinner fa-spin"></i> Loading configuration status...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fa fa-chart-bar"></i> Integration Summary</h4>
+                </div>
+                <div class="card-body">
+                    <div id="integration-summary">
+                        <div class="text-center">
+                            <i class="fa fa-spinner fa-spin"></i> Loading integration summary...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fa fa-plug"></i> API & Integration Tests</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-block" id="test-connection-btn">
+                                <i class="fa fa-globe"></i><br>Test API Connection
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-info btn-block" id="test-encryption-btn">
+                                <i class="fa fa-lock"></i><br>Test Encryption
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success btn-block" id="test-va-btn">
+                                <i class="fa fa-credit-card"></i><br>Test Virtual Account
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-warning btn-block" id="test-webhook-btn">
+                                <i class="fa fa-webhook"></i><br>Test Webhook
+                            </button>
+                        </div>
+                    </div>
+                    <div id="test-results" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fa fa-external-link-alt"></i> ERPNext Banking Integration</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="/app/bank-account" class="btn btn-outline-primary btn-block">
+                                <i class="fa fa-university"></i><br>Bank Accounts
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/app/bank-transaction" class="btn btn-outline-info btn-block">
+                                <i class="fa fa-exchange-alt"></i><br>Bank Transactions
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/app/payment-entry" class="btn btn-outline-success btn-block">
+                                <i class="fa fa-money-bill"></i><br>Payment Entries
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/app/bank-reconciliation-tool" class="btn btn-outline-warning btn-block">
+                                <i class="fa fa-balance-scale"></i><br>Reconciliation Tool
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4><i class="fa fa-cogs"></i> ICICI Doctypes</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="/app/icici-settings" class="btn btn-outline-secondary btn-block">
+                                <i class="fa fa-cog"></i><br>ICICI Settings
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/app/icici-virtual-account" class="btn btn-outline-secondary btn-block">
+                                <i class="fa fa-credit-card"></i><br>Virtual Accounts
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/app/icici-payment-intimation" class="btn btn-outline-secondary btn-block">
+                                <i class="fa fa-bell"></i><br>Payment Intimations
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Load initial data
+    loadSettingsStatus();
+    loadIntegrationSummary();
+    
+    // Test buttons
+    $('#test-connection-btn').click(function() { testConnection(); });
+    $('#test-encryption-btn').click(function() { testEncryption(); });
+    $('#test-va-btn').click(function() { testVirtualAccount(); });
+    $('#test-webhook-btn').click(function() { testWebhook(); });
+});
+
+function loadSettingsStatus() {
+    frappe.call({
+        method: 'bank_ecollection.www.test-icici-connection.get_settings_status',
+        callback: function(r) {
+            if (r.message && r.message.success) {
+                displaySettingsStatus(r.message.status);
+            } else {
+                $('#settings-status').html('<div class="alert alert-danger">Failed to load settings status</div>');
+            }
+        }
+    });
+}
+
+function loadIntegrationSummary() {
+    frappe.call({
+        method: 'bank_ecollection.www.test-icici-connection.get_integration_summary',
+        callback: function(r) {
+            if (r.message && r.message.success) {
+                displayIntegrationSummary(r.message.summary);
+            } else {
+                $('#integration-summary').html('<div class="alert alert-danger">Failed to load integration summary</div>');
+            }
+        }
+    });
+}
+
+function displaySettingsStatus(status) {
+    let html = '<table class="table table-sm">';
+    
+    html += '<tr><td><strong>Environment:</strong></td><td><span class="badge badge-info">' + status.environment + '</span></td></tr>';
+    html += '<tr><td><strong>Integration:</strong></td><td>' + getStatusBadge(status.integration_enabled) + '</td></tr>';
+    html += '<tr><td><strong>Client Code:</strong></td><td>' + getStatusBadge(status.client_code) + '</td></tr>';
+    html += '<tr><td><strong>API Key:</strong></td><td>' + getStatusBadge(status.api_key) + '</td></tr>';
+    html += '<tr><td><strong>Public Key:</strong></td><td>' + getStatusBadge(status.public_key) + '</td></tr>';
+    html += '<tr><td><strong>Private Key:</strong></td><td>' + getStatusBadge(status.private_key) + '</td></tr>';
+    html += '<tr><td><strong>Webhook:</strong></td><td>' + getStatusBadge(status.webhook_configured) + '</td></tr>';
+    html += '<tr><td><strong>Company:</strong></td><td>' + getStatusBadge(status.default_company) + '</td></tr>';
+    html += '<tr><td><strong>Bank Account:</strong></td><td>' + getStatusBadge(status.default_bank_account) + '</td></tr>';
+    
+    html += '</table>';
+    
+    if (status.bene_upload_url) {
+        html += '<div class="mt-2"><small><strong>Bene Upload URL:</strong><br>' + status.bene_upload_url + '</small></div>';
+    }
+    
+    $('#settings-status').html(html);
+}
+
+function displayIntegrationSummary(summary) {
+    let counts = summary.counts;
+    let html = '<div class="row">';
+    
+    html += '<div class="col-6"><div class="text-center">';
+    html += '<h3 class="text-primary">' + counts.virtual_accounts + '</h3>';
+    html += '<small>Virtual Accounts</small></div></div>';
+    
+    html += '<div class="col-6"><div class="text-center">';
+    html += '<h3 class="text-success">' + counts.payment_intimations + '</h3>';
+    html += '<small>Payment Intimations</small></div></div>';
+    
+    html += '<div class="col-6 mt-2"><div class="text-center">';
+    html += '<h3 class="text-info">' + counts.bank_transactions + '</h3>';
+    html += '<small>Bank Transactions</small></div></div>';
+    
+    html += '<div class="col-6 mt-2"><div class="text-center">';
+    html += '<h3 class="text-warning">' + counts.payment_entries + '</h3>';
+    html += '<small>Payment Entries</small></div></div>';
+    
+    html += '</div>';
+    
+    $('#integration-summary').html(html);
+}
+
+function getStatusBadge(status) {
+    if (status) {
+        return '<span class="badge badge-success">✓ Configured</span>';
+    } else {
+        return '<span class="badge badge-warning">✗ Not Set</span>';
+    }
+}
+
+function testConnection() {
+    runTest('test-connection-btn', 'bank_ecollection.www.test-icici-connection.test_connection', 'Connection Test');
+}
+
+function testEncryption() {
+    runTest('test-encryption-btn', 'bank_ecollection.www.test-icici-connection.test_encryption', 'Encryption Test');
+}
+
+function testVirtualAccount() {
+    runTest('test-va-btn', 'bank_ecollection.www.test-icici-connection.test_virtual_account_creation', 'Virtual Account Test');
+}
+
+function testWebhook() {
+    runTest('test-webhook-btn', 'bank_ecollection.www.test-icici-connection.test_webhook_endpoint', 'Webhook Test');
+}
+
+function runTest(btnId, method, testName) {
+    let btn = $('#' + btnId);
+    let originalHtml = btn.html();
+    btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i><br>Testing...');
+    
+    frappe.call({
+        method: method,
+        callback: function(r) {
+            btn.prop('disabled', false).html(originalHtml);
+            
+            if (r.message && r.message.success) {
+                showTestResult(testName, 'success', r.message.message || 'Test successful');
+            } else {
+                showTestResult(testName, 'danger', r.message ? r.message.message : 'Test failed');
+            }
+        }
+    });
+}
+
+function showTestResult(title, type, message) {
+    let alertClass = 'alert-' + type;
+    let icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle';
+    
+    let html = '<div class="alert ' + alertClass + ' alert-dismissible fade show" role="alert">';
+    html += '<i class="fa ' + icon + '"></i> <strong>' + title + ':</strong> ' + message;
+    html += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+    html += '<span aria-hidden="true">&times;</span></button></div>';
+    
+    $('#test-results').prepend(html);
+    
+    // Auto-remove after 10 seconds
+    setTimeout(function() {
+        $('#test-results .alert').first().fadeOut();
+    }, 10000);
+}
+</script>
+{% endblock %}

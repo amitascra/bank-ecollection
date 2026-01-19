@@ -1,14 +1,14 @@
 app_name = "bank_ecollection"
-app_title = "Bank E-Collection-ERPnext"
+app_title = "Bank E-Collection"
 app_publisher = "Amit Kumar"
-app_description = "Banking E-collection app for ERPNext"
+app_description = "ICICI Bank e-Collection Integration for ERPNext"
 app_email = "amit@ascratech.com"
 app_license = "mit"
 
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["erpnext"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -64,6 +64,24 @@ app_license = "mit"
 # 	"Role": "home_page"
 # }
 
+# Fixtures
+# ----------
+
+fixtures = [
+	{
+		"dt": "Dashboard Chart",
+		"filters": [
+			["name", "in", ["ICICI Transaction Summary", "Virtual Account Status", "Payment Processing Status"]]
+		]
+	},
+	{
+		"dt": "Number Card", 
+		"filters": [
+			["name", "in", ["Total Virtual Accounts", "Active Virtual Accounts", "Payment Intimations", "Processed Payments"]]
+		]
+	}
+]
+
 # Generators
 # ----------
 
@@ -83,7 +101,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "bank_ecollection.install.before_install"
-# after_install = "bank_ecollection.install.after_install"
+after_install = "bank_ecollection.bank_e_collection.dashboard_fixtures.install_fixtures"
 
 # Uninstallation
 # ------------
@@ -137,34 +155,28 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Customer": {
+		"after_insert": "bank_ecollection.api.bene_upload.create_virtual_account",
+		"on_update": "bank_ecollection.api.bene_upload.update_virtual_account"
+	},
+	"Supplier": {
+		"after_insert": "bank_ecollection.api.bene_upload.create_virtual_account",
+		"on_update": "bank_ecollection.api.bene_upload.update_virtual_account"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"bank_ecollection.tasks.all"
-# 	],
-# 	"daily": [
-# 		"bank_ecollection.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"bank_ecollection.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"bank_ecollection.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"bank_ecollection.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"daily": [
+		"bank_ecollection.tasks.scheduled_tasks.daily_reconciliation"
+	],
+	"hourly": [
+		"bank_ecollection.tasks.scheduled_tasks.sync_pending_transactions"
+	]
+}
 
 # Testing
 # -------
@@ -174,6 +186,26 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
+# Whitelisted Methods
+# -------------------
+
+whitelisted_methods = [
+	"bank_ecollection.api.intimation_webhook.handle_payment_notification",
+	"bank_ecollection.api.enquiry.query_transaction_status",
+	"bank_ecollection.api.bene_upload.manual_upload_beneficiary",
+	"bank_ecollection.utils.reconciliation.run_reconciliation"
+]
+
+# Website Routes for Webhooks
+# ----------------------------
+
+website_route_rules = [
+	{
+		"from_route": "/api/icici/intimation",
+		"to_route": "bank_ecollection.api.intimation_webhook.handle_payment_notification"
+	}
+]
+
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "bank_ecollection.event.get_events"
 # }

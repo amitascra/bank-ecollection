@@ -62,7 +62,7 @@ function set_party_filter(frm) {
 
 function sync_virtual_account(frm) {
 	frappe.call({
-		method: 'bank_ecollection.bank_ecollection.doctype.icici_virtual_account.icici_virtual_account.sync_virtual_account',
+		method: 'bank_ecollection.bank_e_collection.doctype.icici_virtual_account.icici_virtual_account.sync_virtual_account',
 		args: {
 			virtual_account_name: frm.doc.name
 		},

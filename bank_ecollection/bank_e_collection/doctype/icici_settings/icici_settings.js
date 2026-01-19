@@ -57,7 +57,7 @@ frappe.ui.form.on('ICICI Settings', {
 
 function test_api_connection(frm) {
 	frappe.call({
-		method: 'bank_ecollection.bank_ecollection.doctype.icici_settings.icici_settings.test_api_connection',
+		method: 'bank_ecollection.bank_e_collection.doctype.icici_settings.icici_settings.test_api_connection',
 		callback: function(r) {
 			if (r.message) {
 				if (r.message.success) {

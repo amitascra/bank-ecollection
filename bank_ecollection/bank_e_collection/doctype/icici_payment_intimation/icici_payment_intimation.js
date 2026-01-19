@@ -79,7 +79,7 @@ function process_payment_intimation(frm) {
 		__('Process this payment intimation and create Payment Entry?'),
 		function() {
 			frappe.call({
-				method: 'bank_ecollection.bank_ecollection.doctype.icici_payment_intimation.icici_payment_intimation.process_payment_intimation',
+				method: 'bank_ecollection.bank_e_collection.doctype.icici_payment_intimation.icici_payment_intimation.process_payment_intimation',
 				args: {
 					intimation_name: frm.doc.name
 				},
@@ -111,7 +111,7 @@ function retry_payment_processing(frm) {
 		__('Retry processing this failed payment intimation?'),
 		function() {
 			frappe.call({
-				method: 'bank_ecollection.bank_ecollection.doctype.icici_payment_intimation.icici_payment_intimation.retry_failed_intimation',
+				method: 'bank_ecollection.bank_e_collection.doctype.icici_payment_intimation.icici_payment_intimation.retry_failed_intimation',
 				args: {
 					intimation_name: frm.doc.name
 				},

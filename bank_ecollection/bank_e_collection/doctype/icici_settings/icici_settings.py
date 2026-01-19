@@ -125,16 +125,86 @@ def get_icici_settings():
 
 @frappe.whitelist()
 def test_api_connection():
-	"""Test ICICI API connection"""
+	"""Test ICICI API connection with actual API call"""
 	try:
 		settings = frappe.get_single("ICICI Settings")
 		
 		if not settings.enable_integration:
 			return {"success": False, "message": "Integration is disabled"}
 		
-		# Test basic connectivity (implement actual API test)
-		return {"success": True, "message": "Connection test successful"}
+		# Check required fields
+		if not settings.client_code:
+			return {"success": False, "message": "Client Code is required"}
 		
+		if not settings.get_password("api_key"):
+			return {"success": False, "message": "API Key is required"}
+		
+		if not settings.enquiry_url:
+			return {"success": False, "message": "Enquiry URL is required"}
+		
+		# Make actual API test call
+		import requests
+		import json
+		
+		# Prepare test request - using enquiry endpoint with minimal data
+		headers = {
+			"Content-Type": "application/json",
+			"Accept": "application/json",
+			"apikey": settings.get_password("api_key"),
+			"clientcode": settings.client_code
+		}
+		
+		# Test payload for enquiry endpoint
+		test_payload = {
+			"clientCode": settings.client_code,
+			"enquiryType": "STATUS_CHECK"
+		}
+		
+		# Make API call with timeout
+		response = requests.post(
+			settings.enquiry_url,
+			headers=headers,
+			json=test_payload,
+			timeout=10,
+			verify=True
+		)
+		
+		# Check response
+		if response.status_code == 200:
+			try:
+				response_data = response.json()
+				return {
+					"success": True, 
+					"message": f"API connection successful. Status: {response.status_code}",
+					"response": response_data
+				}
+			except json.JSONDecodeError:
+				return {
+					"success": True,
+					"message": f"API connection successful. Status: {response.status_code} (Non-JSON response)"
+				}
+		elif response.status_code == 401:
+			return {
+				"success": False, 
+				"message": "Authentication failed. Please check your API Key and Client Code."
+			}
+		elif response.status_code == 403:
+			return {
+				"success": False, 
+				"message": "Access forbidden. Please check your API permissions."
+			}
+		else:
+			return {
+				"success": False, 
+				"message": f"API call failed with status {response.status_code}: {response.text[:200]}"
+			}
+		
+	except requests.exceptions.Timeout:
+		return {"success": False, "message": "API request timed out. Please check the URL and network connectivity."}
+	except requests.exceptions.ConnectionError:
+		return {"success": False, "message": "Connection error. Please check the API URL and network connectivity."}
+	except requests.exceptions.SSLError as e:
+		return {"success": False, "message": f"SSL certificate error: {str(e)}"}
 	except Exception as e:
 		frappe.log_error(f"ICICI API Connection Test Failed: {str(e)}")
-		return {"success": False, "message": str(e)}
+		return {"success": False, "message": f"Connection test failed: {str(e)}"}

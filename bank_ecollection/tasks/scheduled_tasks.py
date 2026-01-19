@@ -58,7 +58,7 @@ def sync_pending_transactions():
 			return
 		
 		# Process pending payment intimations
-		from bank_ecollection.bank_ecollection.doctype.icici_payment_intimation.icici_payment_intimation import bulk_process_pending_intimations
+		from bank_ecollection.bank_e_collection.doctype.icici_payment_intimation.icici_payment_intimation import bulk_process_pending_intimations
 		
 		result = bulk_process_pending_intimations()
 		
